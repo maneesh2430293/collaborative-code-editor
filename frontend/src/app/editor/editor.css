@@ -1,0 +1,42 @@
+.editor-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  font-family: "Fira Code", monospace;
+}
+
+.editor-header {
+  background-color: #f3f4f6;
+  padding: 10px 20px;
+  border-bottom: 1px solid #ddd;
+  font-weight: bold;
+  color: #333;
+}
+
+.status-dot {
+  height: 10px;
+  width: 10px;
+  background-color: #10b981;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.cm-container {
+  flex-grow: 1;
+  overflow: hidden;
+  font-size: 14px;
+}
+
+/* Global CodeMirror override to ensure it takes full height */
+:host ::ng-deep .cm-editor {
+  height: 100%;
+}
+
+/* The background color of the text selected by others */
+:host ::ng-deep .cm-ySelection {
+  /* 'inherit' takes the main color provided by Yjs (the random hex we just generated) */
+  background-color: inherit;
+  /* opacity automatically makes it a "light" version */
+  opacity: 0.3;
+}

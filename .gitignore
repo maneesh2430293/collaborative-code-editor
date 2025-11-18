@@ -1,0 +1,10 @@
+# This file tells Git to ignore secrets and large/generated folders.
+
+# Backend (Node.js)
+backend/node_modules/
+backend/dist/
+backend/.env
+
+# OS / IDE files
+
+.vscode/
