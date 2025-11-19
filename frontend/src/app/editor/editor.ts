@@ -70,8 +70,6 @@ export class Editor implements AfterViewInit {
       const currentDoc = context.state.doc.toString();
 
       try {
-        // CONVERT OBSERVABLE TO PROMISE HERE
-        // We use firstValueFrom to wait for the HTTP Observable to finish one emission
         const data = await firstValueFrom(
           this.aiService.getCompletion(currentDoc)
         );
@@ -91,9 +89,8 @@ export class Editor implements AfterViewInit {
           };
         }
 
-        // Return the result in CodeMirror format
         return {
-          from: context.pos, // Or use word.from if you want to replace the specific word typed
+          from: context.pos,
           options: [
             {
               label: data.suggestion,
@@ -108,20 +105,18 @@ export class Editor implements AfterViewInit {
       }
     };
 
-    // 3. Initialize CodeMirror
     this.editorView = new EditorView({
       parent: this.editorRef.nativeElement,
       extensions: [
         basicSetup,
         javascript(),
         yCollab(ytext, awareness),
-        autocompletion({ override: [aiCompletionSource] }), // AI Integration
+        autocompletion({ override: [aiCompletionSource] }),
       ],
     });
   }
 
   ngOnDestroy(): void {
-    // Clean up resources to prevent memory leaks
     if (this.editorView) this.editorView.destroy();
     this.collabService.disconnect();
   }

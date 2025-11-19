@@ -11,7 +11,7 @@ export class SocketManager {
 
   private setupConnectionHandler() {
     this.wss.on("connection", (ws: any, req: IncomingMessage) => {
-      //This library function handles all the heavy lifting for Yjs sync
+      //broadcasting also done here
       setupWSConnection(ws, req);
       console.log("New Client Connected to Room");
     });
