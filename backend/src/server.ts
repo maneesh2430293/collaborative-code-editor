@@ -10,6 +10,14 @@ server.on("upgrade", (request, socket, head) => {
   socketManager.handleUpgrade(request, socket, head);
 });
 
+const currentKey = process.env.GEMINI_API_KEY || "";
+console.log("--- DEBUG KEY ---");
+console.log("Key exists:", !!currentKey);
+console.log("First 4 chars:", currentKey.substring(0, 4));
+console.log("Last 4 chars:", currentKey.substring(currentKey.length - 4));
+console.log("Total length:", currentKey.length);
+console.log("-----------------");
+
 server.listen(config.port, () => {
   console.log(`Server running on http://localhost:${config.port}`);
   console.log(`WebSockets enabled`);

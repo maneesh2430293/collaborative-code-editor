@@ -11,7 +11,6 @@ export class SocketManager {
 
   private setupConnectionHandler() {
     this.wss.on("connection", (ws: any, req: IncomingMessage) => {
-      //broadcasting also done here
       setupWSConnection(ws, req);
       console.log("New Client Connected to Room");
     });

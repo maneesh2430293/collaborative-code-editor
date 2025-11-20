@@ -6,14 +6,16 @@ export class GeminiService {
   private model: any;
 
   constructor() {
-    this.genAI = new GoogleGenerativeAI(config.geminiApiKey);
+    this.genAI = new GoogleGenerativeAI(config.geminiApiKey || "MOCK_KEY");
     //this.model = this.genAI.getGenerativeModel({ model: "gemini-pro" });
     // Optimized for fast, real-time completion
     // this.model = this.genAI.getGenerativeModel({
     //   model: "gemini-1.5-flash-latest",
     // });
     // The most advanced model, slightly slower
-    this.model = this.genAI.getGenerativeModel({ model: "gemini-1.0-pro" });
+    //this.model = this.genAI.getGenerativeModel({ model: "gemini-1.0-pro" });
+
+    this.model = this.genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
   }
 
   async generateCompletion(codeContext: string): Promise<string> {
@@ -38,8 +40,15 @@ export class GeminiService {
       // Clean up any accidental whitespace/markdown provided by AI
       return text.replace(/```/g, "").trim();
     } catch (error) {
-      console.error("Gemini Service Error:", error);
-      throw new Error("Failed to generate code completion");
+      // console.error("Gemini Service Error:", error);
+      // throw new Error("Failed to generate code completion");
+      console.warn("⚠️ API Failed. Switching to MOCK mode."); // ⚠️ We catch it here
+
+      // 1. Fake Delay (so it feels like AI is thinking)
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      // 2. Return Mock Data instead of throwing error
+      return `// [MOCK AI RESPONSE] \nconsole.log("Hello from Mock AI!");`;
     }
   }
 }
