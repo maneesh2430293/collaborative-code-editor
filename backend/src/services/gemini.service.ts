@@ -66,10 +66,23 @@ export class GeminiService {
   }
 
   async generateCompletion(codeContext: string): Promise<string> {
+    const prompt = `
+  You are a fast code autocompletion engine.
+  Your task is to complete the code found at the end of the input.
+  
+  STRICT RULES:
+  1. Return ONLY the new code to be inserted at the cursor.
+  2. Do NOT repeat any code from the input.
+  3. Do NOT use Markdown (no \`\`\`).
+  4. If the code is already complete, return nothing.
+
+  INPUT CODE:
+  ${codeContext}
+`;
     try {
       const response = await this.ai.models.generateContent({
         model: "gemini-2.5-flash", // Using the newest model
-        contents: `Complete this code (return only code): ${codeContext}`,
+        contents: prompt,
         config: {
           thinkingConfig: {
             thinkingBudget: 0, // 0 = Disable thinking for speed
