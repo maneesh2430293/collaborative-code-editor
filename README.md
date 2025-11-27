@@ -27,7 +27,7 @@ A real-time collaborative code editor featuring intelligent code completion powe
 - **Framework:** Express.js
 - **Language:** TypeScript
 - **Real-time Engine:** `ws` (WebSocket), `y-websocket`
-- **AI Integration:** `@google/generative-ai` SDK
+- **AI Integration:** `@google/genai` SDK
 
 ---
 
@@ -71,6 +71,7 @@ cd collaborative-code-editor
 
 cd backend
 npm install
+npm install @google/genai
 
 # Create environment file
 
